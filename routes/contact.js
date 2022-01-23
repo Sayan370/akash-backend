@@ -70,7 +70,7 @@ const name = req2.body.name;
 const email = req2.body.email;
 const phone = req2.body.phone;
 const message = req2.body.message;
-const date = new Date().toLocaleDateString();
+const date = new Date().toLocaleString();
 
 
 const newUserData = {
