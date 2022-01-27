@@ -73,6 +73,29 @@ router.route('/add').post(upload.single('photo'), (req, res) => {
 });
 
 
+router.route('/add1').post(upload.single('photo'), (req, res) => {
+
+    const title = req.body.title;
+    const category = req.body.category;
+    const photo = req.body.photo;
+    
+
+    const newUserData = {
+        title,
+        category,
+        photo
+      
+    }
+
+ 
+
+    const newUser = new Portfolio(newUserData);
+
+    newUser.save()
+           .then(() => res.json('Portfolio Added'))
+           .catch(err => res.status(400).json('Error: ' + err));
+});
+
 
 router.route('/update').post(upload.single('photo'), (req, res) => {
 
@@ -112,6 +135,29 @@ router.route('/update').post(upload.single('photo'), (req, res) => {
 });
 
 
+router.route('/update1').post(upload.single('photo'), (req, res) => {
+
+    console.log(req.body);
+    const ids = req.body.id;
+    const title = req.body.title;
+    const photo = req.body.photo;
+    const category = req.body.category;
+  
+    const newUserData = {
+        title,
+        category,
+        photo
+        
+    }
+
+
+
+    
+
+        Portfolio.updateOne(  { _id:ids} , { $set: newUserData })
+           .then(() => res.json('Portfolio Updated'))
+           .catch(err => res.status(400).json('Error: ' + err));
+});
 
 
 router.route('/delete').post(upload.single('photo'), (req, res) => {
@@ -126,6 +172,19 @@ router.route('/delete').post(upload.single('photo'), (req, res) => {
 
         fs.unlinkSync(`images/${oldphoto}`);
     }
+
+    
+
+        Portfolio.deleteOne(  { _id:ids})
+           .then(() => res.json('Portfolio Deleted'))
+           .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/delete1').post(upload.single('photo'), (req, res) => {
+
+    const ids = req.body.id;
+
+ 
 
     
 
